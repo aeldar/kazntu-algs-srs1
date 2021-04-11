@@ -7,7 +7,7 @@ using namespace std;
 int main() {
   Ticket t;
 
-  cout << t.to_string() << endl;
+  cout << t << endl;
 
   return 0;
 }

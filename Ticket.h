@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -15,6 +16,7 @@ private:
 public:
   Ticket();
   string to_string();
+  friend ostream& operator<< (ostream& os, Ticket t);
 };
 
 Ticket::Ticket () {
@@ -28,4 +30,9 @@ Ticket::Ticket () {
 
 string Ticket::to_string () {
   return route_no + " " + point_of_departure + " " +  departure_time;
+}
+
+ostream& operator<< (ostream& os, Ticket t) {
+  os << t.to_string();
+  return os;
 }
