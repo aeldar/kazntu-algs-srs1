@@ -17,8 +17,8 @@ public:
   Ticket();
   Ticket(int route_no, string point_of_departure, string departure_time,
       string destination, string arrival_time, double price);
-  string to_string();
-  friend ostream& operator<<(ostream& os, Ticket t);
+  friend ostream& operator<<(ostream& os, const Ticket& t);
+  friend istream& operator>>(istream& is, Ticket& t);
 };
 
 // ----- implementation -----
@@ -42,16 +42,18 @@ Ticket::Ticket(int route_no, string point_of_departure, string departure_time,
   this->price = price;
 }
 
-string Ticket::to_string () {
-  return std::to_string(route_no)
-    + " " + point_of_departure
-    + " " + departure_time
-    + " " + destination
-    + " " + arrival_time
-    + " " + std::to_string(price);
-}
-
-ostream& operator<< (ostream& os, Ticket t) {
-  os << t.to_string();
+ostream& operator<< (ostream& os, const Ticket& t) {
+  os << t.route_no
+    << " " << t.point_of_departure
+    << " " << t.departure_time
+    << " " << t.destination
+    << " " << t.arrival_time
+    << " " << t.price;
   return os;
 }
+
+istream& operator>>(istream& is, Ticket& t) {
+  is >> t.route_no >> t.point_of_departure >> t.departure_time >> t.destination >> t.arrival_time >> t.price;
+  return is;
+}
+
