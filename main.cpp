@@ -7,7 +7,7 @@ using namespace std;
 int main() {
   Ticket t;
 
-  cout << t.route_no << t.point_of_departure << endl;
+  cout << t.to_string() << endl;
 
   return 0;
 }
