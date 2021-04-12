@@ -1,18 +1,24 @@
 #include <iostream>
+#include <vector>
 
 #include "Ticket.h"
 
 using namespace std;
 
 int main() {
-  Ticket ts[10];
+  std::vector<Ticket> v;
 
-  ts[0] = Ticket(1, "fdsfd", "afaf", "fdfd", "asda", 123.54);
+  // show help info
+  cout << "Please enter data line by line in the following format:" << endl;
+  cout << "RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price" << endl;
 
-  cin >> ts[1];
+  Ticket t;
+  while(cin >> t) {
+    v.push_back(t);
+  }
 
-  for (int i = 0; i < 10; i++) {
-    cout << ts[i] << endl;
+  for (int i = 0; i < v.size(); i++) {
+    cout << v[i] << endl;
   }
 
   return 0;
