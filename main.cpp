@@ -10,7 +10,8 @@ int main() {
 
   // show help info
   cout << "Please enter data line by line in the following format:" << endl;
-  cout << "RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price" << endl;
+  cout << "RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price"
+    << endl;
 
   Ticket t;
   while(cin >> t) {
