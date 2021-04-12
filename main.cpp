@@ -13,11 +13,13 @@ int main() {
   cout << "RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price"
     << endl;
 
+  // read stdin to fill in vector with actual data
   Ticket t;
   while(cin >> t) {
     v.push_back(t);
   }
 
+  // dump the content of vestor
   for (int i = 0; i < v.size(); i++) {
     cout << v[i] << endl;
   }
