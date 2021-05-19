@@ -6,9 +6,27 @@ using namespace std;
 
 std::vector<Ticket> clone_vector(const std::vector<Ticket> &);
 
-/**
- * Ask a user about top level options
- */
+//declarations
+int top_menu();
+int sort_menu();
+string filter_menu();
+
+bool compareRouteNo(Ticket, Ticket);
+bool comparePointOfDeparture(Ticket, Ticket);
+bool compareDestination(Ticket, Ticket);
+bool compareDepartureTime(Ticket, Ticket);
+bool compareArrivalTime(Ticket, Ticket);
+bool comparePrice(Ticket, Ticket);
+
+void sort_tickets(std::vector<Ticket> &, int);
+std::vector<Ticket> filter_tickets(std::vector<Ticket> &, string);
+void dump_table(const std::vector<Ticket> &, int, string);
+std::vector<Ticket> clone_vector(const std::vector<Ticket> &);
+int load_data(string, std::vector<Ticket> &);
+
+// --- Implamentation ---
+
+// Ask a user about top level options
 int top_menu() {
 
   int selected_option;
@@ -37,9 +55,7 @@ int top_menu() {
   return selected_option;
 }
 
-/**
- * Ask a user about a sorting option
- */
+// Ask a user about a sorting option
 int sort_menu() {
 
   int selected_option;
@@ -67,9 +83,7 @@ int sort_menu() {
   return selected_option;
 }
 
-/**
- * Ask a user to specify a filter string
- */
+// Ask a user to specify a filter string
 string filter_menu() {
 
   string filter_string = "";
@@ -101,6 +115,7 @@ bool comparePrice(Ticket t1, Ticket t2) {
   return t1.get_price() < t2.get_price();
 }
 
+// sort tickets vector
 void sort_tickets(std::vector<Ticket> &v, int sort_option) {
   switch(sort_option) {
     case 1:
@@ -126,11 +141,26 @@ void sort_tickets(std::vector<Ticket> &v, int sort_option) {
   }
 }
 
-/**
- * Print the table of tickets
- */
+// filter tickets vector
+std::vector<Ticket> filter_tickets(std::vector<Ticket> v, string filter_string) {
+  if (filter_string == "") {
+    return clone_vector(v); // do nothing, if filter is an empty string
+  }
+
+  std::vector<Ticket> v_tmp;
+
+  for(int i = 0; i < v.size(); i++) {
+    if (v[i].get_point_of_departure().find(filter_string) != std::string::npos) {
+      v_tmp.push_back(v[i]);
+    }
+  }
+
+  return v_tmp;
+}
+
+// Print the table of tickets
 void dump_table(const std::vector<Ticket> &v, int sort_option = 1, string filter_string = "") {
-  std::vector<Ticket> v_tmp = clone_vector(v);
+  std::vector<Ticket> v_tmp = filter_tickets(v, filter_string);
   sort_tickets(v_tmp, sort_option);
   cout << endl;
   cout << "RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price" << endl;
@@ -139,6 +169,7 @@ void dump_table(const std::vector<Ticket> &v, int sort_option = 1, string filter
   }
 }
 
+// clone Tickets vector
 std::vector<Ticket> clone_vector(const std::vector<Ticket> &orig) {
   std::vector<Ticket> copy;
   for (int i = 0; i < orig.size(); i++) {
@@ -147,6 +178,7 @@ std::vector<Ticket> clone_vector(const std::vector<Ticket> &orig) {
   return copy;
 }
 
+// load data from file
 int load_data(string file_name, std::vector<Ticket> &v) {
   Ticket t;
   ifstream data_file;
