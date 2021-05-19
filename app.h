@@ -19,7 +19,7 @@ bool compareArrivalTime(Ticket, Ticket);
 bool comparePrice(Ticket, Ticket);
 
 void sort_tickets(std::vector<Ticket> &, int);
-std::vector<Ticket> filter_tickets(std::vector<Ticket> &, string);
+std::vector<Ticket> filter_tickets(std::vector<Ticket>, string);
 void dump_table(const std::vector<Ticket> &, int, string);
 std::vector<Ticket> clone_vector(const std::vector<Ticket> &);
 int load_data(string, std::vector<Ticket> &);
@@ -38,8 +38,8 @@ int top_menu() {
   cout << " 2 - sort" << endl;
   cout << " 3 - filter" << endl;
   cout << " 4 - reset" << endl;
-  cout << " 5 - exit" << endl;
-  cout << " 6 - show active options" << endl;
+  cout << " 5 - show active options" << endl;
+  cout << " 6 - exit" << endl;
   cout << " ? ";
 
   bool done = false;
@@ -150,7 +150,14 @@ std::vector<Ticket> filter_tickets(std::vector<Ticket> v, string filter_string) 
   std::vector<Ticket> v_tmp;
 
   for(int i = 0; i < v.size(); i++) {
-    if (v[i].get_point_of_departure().find(filter_string) != std::string::npos) {
+    if (
+      to_string(v[i].get_route_no()).find(filter_string) != std::string::npos
+      || v[i].get_point_of_departure().find(filter_string) != std::string::npos
+      || v[i].get_destination().find(filter_string) != std::string::npos
+      || v[i].get_departure_time().find(filter_string) != std::string::npos
+      || v[i].get_arrival_time().find(filter_string) != std::string::npos
+      || to_string(v[i].get_price()).find(filter_string) != std::string::npos
+    ) {
       v_tmp.push_back(v[i]);
     }
   }

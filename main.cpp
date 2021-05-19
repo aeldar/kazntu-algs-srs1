@@ -38,14 +38,14 @@ int main() {
         cout << endl << "Sorting and filtering was reseted." << endl;
         break;
       case 5:
-        // exit the app
-        cout << "Bye!" << endl;
-        done = true;
-        break;
-      case 6:
         // DEBUG: show options
         cout << endl << "Sorting option: " << sort_option;
         cout << ", Filter string: \"" << filter_string << "\"" << endl;
+        break;
+      case 6:
+        // exit the app
+        cout << "Bye!" << endl;
+        done = true;
         break;
       default:
         cerr << "Wrong option. Or not yet implemented. Please restart.";
