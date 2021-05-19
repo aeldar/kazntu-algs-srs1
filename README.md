@@ -14,14 +14,11 @@ Clean
 Run
 ---
 
-To enter data manually just run the app:
-
 ```
 ./runme
 ```
 
-To enter data from a file use `stdin`:
+The app reads the file "data.txt" located in the same directory to get Tickets data.
 
-```
-./runme < data.txt
-```
+The format for teh file:
+`RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price`
