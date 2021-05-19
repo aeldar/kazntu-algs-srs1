@@ -13,7 +13,10 @@ int main() {
   string filter_string = "";
 
   // read file "data.txt" to fill in vector with actual data
-  load_data("data.txt", v);
+  int result_code = load_data("data.txt", v);
+  if (result_code) {
+    return result_code;
+  }
 
   bool done = false; // flag to stop the app
   while (!done) {
@@ -21,7 +24,7 @@ int main() {
     
     switch (top_menu_option) {
       case 1:
-        dump_table(v);
+        dump_table(v, sort_option, filter_string);
         break;
       case 2:
         sort_option = sort_menu();
@@ -48,8 +51,6 @@ int main() {
         cerr << "Wrong option. Or not yet implemented. Please restart.";
         break;
     }
-
-    // debug
     
   }
 

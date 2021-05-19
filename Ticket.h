@@ -14,11 +14,20 @@ private:
   double price;
 
 public:
+  // constructors
   Ticket();
   Ticket(int route_no, string point_of_departure, string departure_time,
       string destination, string arrival_time, double price);
+  // operator overloading
   friend ostream& operator<<(ostream& os, const Ticket& t);
   friend istream& operator>>(istream& is, Ticket& t);
+  // accessors
+  int get_route_no();
+  string get_point_of_departure();
+  string get_departure_time();
+  string get_destination();
+  string get_arrival_time();
+  double get_price();
 };
 
 // ----- implementation -----
@@ -55,5 +64,25 @@ ostream& operator<< (ostream& os, const Ticket& t) {
 istream& operator>>(istream& is, Ticket& t) {
   is >> t.route_no >> t.point_of_departure >> t.departure_time >> t.destination >> t.arrival_time >> t.price;
   return is;
+}
+
+// getters
+int Ticket::get_route_no() {
+  return this->route_no;
+}
+string Ticket::get_point_of_departure() {
+  return this->point_of_departure;
+}
+string Ticket::get_departure_time() {
+  return this->departure_time;
+}
+string Ticket::get_destination() {
+  return this->destination;
+}
+string Ticket::get_arrival_time() {
+  return this->arrival_time;
+}
+double Ticket::get_price() {
+  return this->price;
 }
 

@@ -1,7 +1,10 @@
 #pragma once
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
+
+std::vector<Ticket> clone_vector(const std::vector<Ticket> &);
 
 /**
  * Ask a user about top level options
@@ -78,15 +81,70 @@ string filter_menu() {
   return filter_string;
 }
 
+// Ticket field compare functions
+bool compareRouteNo(Ticket t1, Ticket t2) {
+  return t1.get_route_no() < t2.get_route_no();
+}
+bool comparePointOfDeparture(Ticket t1, Ticket t2) {
+  return t1.get_point_of_departure() < t2.get_point_of_departure();
+}
+bool compareDestination(Ticket t1, Ticket t2) {
+  return t1.get_destination() < t2.get_destination();
+}
+bool compareDepartureTime(Ticket t1, Ticket t2) {
+  return t1.get_departure_time() < t2.get_departure_time();
+}
+bool compareArrivalTime(Ticket t1, Ticket t2) {
+  return t1.get_arrival_time() < t2.get_arrival_time();
+}
+bool comparePrice(Ticket t1, Ticket t2) {
+  return t1.get_price() < t2.get_price();
+}
+
+void sort_tickets(std::vector<Ticket> &v, int sort_option) {
+  switch(sort_option) {
+    case 1:
+      sort(v.begin(), v.end(), compareRouteNo);
+      break;
+    case 2:
+      sort(v.begin(), v.end(), comparePointOfDeparture);
+      break;
+    case 3:
+      sort(v.begin(), v.end(), compareDestination);
+      break;
+    case 4:
+      sort(v.begin(), v.end(), compareDepartureTime);
+      break;
+    case 5:
+      sort(v.begin(), v.end(), compareArrivalTime);
+      break;
+    case 6:
+      sort(v.begin(), v.end(), comparePrice);
+      break;
+    default:
+      break;
+  }
+}
+
 /**
  * Print the table of tickets
  */
-void dump_table(const std::vector<Ticket> v) {
+void dump_table(const std::vector<Ticket> &v, int sort_option = 1, string filter_string = "") {
+  std::vector<Ticket> v_tmp = clone_vector(v);
+  sort_tickets(v_tmp, sort_option);
   cout << endl;
   cout << "RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price" << endl;
-  for (int i = 0; i < v.size(); i++) {
-    cout << v[i] << endl;
+  for (int i = 0; i < v_tmp.size(); i++) {
+    cout << v_tmp[i] << endl;
   }
+}
+
+std::vector<Ticket> clone_vector(const std::vector<Ticket> &orig) {
+  std::vector<Ticket> copy;
+  for (int i = 0; i < orig.size(); i++) {
+    copy.push_back(orig[i]);
+  }
+  return copy;
 }
 
 int load_data(string file_name, std::vector<Ticket> &v) {
