@@ -25,37 +25,43 @@ int main() {
   }
   data_file.close();
 
-  // dump the content of vector
-  cout << "RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price" << endl;
-  for (int i = 0; i < v.size(); i++) {
-    cout << v[i] << endl;
-  }
+  bool done = false; // flag to stop the app
+  while (!done) {
+    int top_menu_option = top_menu();
+    
+    switch (top_menu_option) {
+      case 1:
+        dump_table(v);
+        break;
+      case 2:
+        sort_option = sort_menu();
+        break;
+      case 3:
+        filter_string = filter_menu();
+        break;
+      case 4:
+        sort_option = 1;
+        filter_string = "";
+        cout << endl << "Sorting and filtering was reseted." << endl;
+        break;
+      case 5:
+        // exit the app
+        cout << "Bye!" << endl;
+        done = true;
+        break;
+      case 6:
+        // DEBUG: show options
+        cout << endl << "Sorting option: " << sort_option;
+        cout << ", Filter string: \"" << filter_string << "\"" << endl;
+        break;
+      default:
+        cerr << "Wrong option. Or not yet implemented. Please restart.";
+        break;
+    }
 
-  int top_menu_option = top_menu();
-  cout << "selected option: " << top_menu_option << endl;
-  
-  switch (top_menu_option) {
-    case 1:
-      sort_option = sort_menu();
-      break;
-    case 2:
-      filter_string = filter_menu();
-      break;
-    case 3:
-      sort_option = 1;
-      filter_string = "";
-      break;
-    case 4:
-      // exit the app
-      return 0;
-    default:
-      cerr << "Wrong option. Or not yet implemented. Please restart.";
-      break;
+    // debug
+    
   }
-
-  // debug
-  cout << "Sorting option: " << sort_option << endl;
-  cout << "Filter string: " << filter_string << endl;
 
   return 0;
 }
