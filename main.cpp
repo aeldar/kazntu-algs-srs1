@@ -28,13 +28,16 @@ int main() {
         break;
       case 2:
         sort_option = sort_menu();
+        dump_table(v, sort_option, filter_string);
         break;
       case 3:
         filter_string = filter_menu();
+        dump_table(v, sort_option, filter_string);
         break;
       case 4:
         sort_option = 1;
         filter_string = "";
+        dump_table(v, sort_option, filter_string);
         cout << endl << "Sorting and filtering was reseted." << endl;
         break;
       case 5:

@@ -170,10 +170,13 @@ void dump_table(const std::vector<Ticket> &v, int sort_option = 1, string filter
   std::vector<Ticket> v_tmp = filter_tickets(v, filter_string);
   sort_tickets(v_tmp, sort_option);
   cout << endl;
-  cout << "RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price" << endl;
+  cout << "-------------------------------------------------------------------------------------" << endl;
+  cout << "Route No | Point Of Departure | Departure Time | Destination | Arrival Time | Price" << endl;
+  cout << "---------+--------------------+----------------+-------------+--------------+--------" << endl;
   for (int i = 0; i < v_tmp.size(); i++) {
     cout << v_tmp[i] << endl;
   }
+  cout << "-------------------------------------------------------------------------------------" << endl;
 }
 
 // clone Tickets vector

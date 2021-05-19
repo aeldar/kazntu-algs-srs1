@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 using namespace std;
@@ -52,12 +53,12 @@ Ticket::Ticket(int route_no, string point_of_departure, string departure_time,
 }
 
 ostream& operator<< (ostream& os, const Ticket& t) {
-  os << t.route_no
-    << " " << t.point_of_departure
-    << " " << t.departure_time
-    << " " << t.destination
-    << " " << t.arrival_time
-    << " " << t.price;
+  os << setw(8) << t.route_no
+    << " | " << setw(18) << t.point_of_departure
+    << " | " << setw(14) << t.departure_time
+    << " | " << setw(11) << t.destination
+    << " | " << setw(12) << t.arrival_time
+    << " | " << t.price;
   return os;
 }
 
