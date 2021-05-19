@@ -13,17 +13,7 @@ int main() {
   string filter_string = "";
 
   // read file "data.txt" to fill in vector with actual data
-  Ticket t;
-  ifstream data_file;
-  data_file.open("data.txt");
-  if (!data_file.is_open()) {
-    cerr << "ERROR. Cannot find file 'data.txt'. See README.md for usage details." << endl;
-    return 127;
-  }
-  while(data_file >> t) {
-    v.push_back(t);
-  }
-  data_file.close();
+  load_data("data.txt", v);
 
   bool done = false; // flag to stop the app
   while (!done) {

@@ -88,3 +88,19 @@ void dump_table(const std::vector<Ticket> v) {
     cout << v[i] << endl;
   }
 }
+
+int load_data(string file_name, std::vector<Ticket> &v) {
+  Ticket t;
+  ifstream data_file;
+  data_file.open(file_name);
+  if (!data_file.is_open()) {
+    cerr << "ERROR. Cannot find file \"" << file_name << "\". See README.md for usage details." << endl;
+    return 127;
+  }
+  while(data_file >> t) {
+    v.push_back(t);
+  }
+  data_file.close();
+
+  return 0;
+}
