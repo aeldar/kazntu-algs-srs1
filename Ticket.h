@@ -23,12 +23,12 @@ public:
   friend ostream& operator<<(ostream& os, const Ticket& t);
   friend istream& operator>>(istream& is, Ticket& t);
   // accessors
-  int get_route_no();
-  string get_point_of_departure();
-  string get_departure_time();
-  string get_destination();
-  string get_arrival_time();
-  double get_price();
+  int get_route_no() const;
+  string get_point_of_departure() const;
+  string get_departure_time() const;
+  string get_destination() const;
+  string get_arrival_time() const;
+  double get_price() const;
 };
 
 // ----- implementation -----
@@ -68,22 +68,22 @@ istream& operator>>(istream& is, Ticket& t) {
 }
 
 // getters
-int Ticket::get_route_no() {
+int Ticket::get_route_no() const {
   return this->route_no;
 }
-string Ticket::get_point_of_departure() {
+string Ticket::get_point_of_departure() const {
   return this->point_of_departure;
 }
-string Ticket::get_departure_time() {
+string Ticket::get_departure_time() const {
   return this->departure_time;
 }
-string Ticket::get_destination() {
+string Ticket::get_destination() const {
   return this->destination;
 }
-string Ticket::get_arrival_time() {
+string Ticket::get_arrival_time() const {
   return this->arrival_time;
 }
-double Ticket::get_price() {
+double Ticket::get_price() const {
   return this->price;
 }
 
