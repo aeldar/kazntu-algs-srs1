@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Vector.h"
+#include "Ticket.h"
 
 using namespace std;
 
