@@ -1,6 +1,8 @@
 SRS 1
 =====
 
+The project was tested on linux gc++.
+
 Build
 -----
 
