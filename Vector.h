@@ -10,10 +10,16 @@ private:
   int buffer_size;
 public:
   Vector();
-  Vector(int buffer_size);
-  Vector(int buffer_size, T elements);
-  Vector(const Vector<T> & orig);
+  Vector(int);
+  Vector(int, T);
+  Vector(const Vector<T> &);
   ~Vector();
+
+  void push_back(T);
+  void pop_back();
+  int size();
+
+  T & operator[](int);
 };
 
 template<typename T>
@@ -55,4 +61,37 @@ Vector<T>::Vector(const Vector<T> & orig) {
 template<typename T>
 Vector<T>::~Vector() {
   delete[] elements;
+}
+
+template<typename T>
+void Vector<T>::push_back(T el) {
+  if (buffer_size == 0 && current_size == 0) {
+    buffer_size = 4;
+    elements = new T[buffer_size];
+  } else if (current_size == buffer_size) {
+    buffer_size *= 2;
+    T* tmp = new T[buffer_size];
+    for (int i =0; i < current_size; i++) {
+      tmp[i] = elements[i];
+    }
+    delete[] elements;
+    elements = tmp;
+  }
+  
+  elements[current_size++] = el;
+}
+
+template<typename T>
+void Vector<T>::pop_back() {
+  current_size--;
+}
+
+template<typename T>
+T & Vector<T>::operator[](int index) {
+  return elements[index];
+}
+
+template<typename T>
+int Vector<T>::size() {
+  return current_size;
 }

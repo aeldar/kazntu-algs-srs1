@@ -9,7 +9,18 @@
 using namespace std;
 
 int main() {
-  Vector<Ticket> myVector;
+  // Vector<Ticket> myVector;
+  // Ticket t1;
+  // Ticket t2;
+  // myVector.push_back(t1);
+  // myVector.push_back(t2);
+  // for (int i = 0; i < myVector.size(); i++) {
+  //   cout << " Item " << i << ": " << myVector[i] << endl;
+  // }
+
+
+
+
   std::vector<Ticket> v;
   int sort_option = 1;
   string filter_string = "";
