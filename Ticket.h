@@ -53,7 +53,7 @@ Ticket::Ticket(int route_no, string point_of_departure, string departure_time,
 }
 
 ostream& operator<< (ostream& os, const Ticket& t) {
-  os << setw(8) << t.route_no
+  os << setw(9) << t.route_no
     << " | " << setw(18) << t.point_of_departure
     << " | " << setw(14) << t.departure_time
     << " | " << setw(11) << t.destination

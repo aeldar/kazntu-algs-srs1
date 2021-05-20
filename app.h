@@ -173,9 +173,9 @@ Vector<Ticket> filter_tickets(const Vector<Ticket> &v, string filter_string) {
 void dump_table(const Vector<Ticket> &v, int sort_option = 1, string filter_string = "") {
   Vector<Ticket> tickets_view = sort_tickets(filter_tickets(v, filter_string), sort_option);
   cout << endl;
-  cout << "-------------------------------------------------------------------------------------" << endl;
-  cout << "Route No | Point Of Departure | Departure Time | Destination | Arrival Time | Price" << endl;
-  cout << "---------+--------------------+----------------+-------------+--------------+--------" << endl;
+  cout << "--------------------------------------------------------------------------------------" << endl;
+  cout << " Route No | Point Of Departure | Departure Time | Destination | Arrival Time | Price" << endl;
+  cout << "----------+--------------------+----------------+-------------+--------------+--------" << endl;
   for (int i = 0; i < tickets_view.size(); i++) {
     cout << tickets_view[i] << endl;
   }
