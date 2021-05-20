@@ -1,12 +1,11 @@
 #pragma once
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 #include "Vector.h"
 
 using namespace std;
-
-std::vector<Ticket> clone_vector(const std::vector<Ticket> &);
 
 //declarations
 int top_menu();
@@ -20,15 +19,14 @@ bool compareDepartureTime(Ticket, Ticket);
 bool compareArrivalTime(Ticket, Ticket);
 bool comparePrice(Ticket, Ticket);
 
-void sort_tickets(std::vector<Ticket> &, int);
-std::vector<Ticket> filter_tickets(std::vector<Ticket>, string);
-void dump_table(const std::vector<Ticket> &, int, string);
+Vector<Ticket> sort_tickets(Vector<Ticket> &, int);
+Vector<Ticket> filter_tickets(Vector<Ticket> &, string);
+void dump_table(const Vector<Ticket> &, int, string);
 template<typename T>
-Vector<T> vToV2(std::vector<T>);
+Vector<T> vToV2(std::vector<T> &);
 template<typename T>
-std::vector<T> v2ToV(Vector<T>);
-std::vector<Ticket> clone_vector(const std::vector<Ticket> &);
-int load_data(string, std::vector<Ticket> &);
+std::vector<T> v2ToV(Vector<T> &);
+int load_data(string, Vector<Ticket> &);
 
 // --- Implamentation ---
 
@@ -122,38 +120,42 @@ bool comparePrice(Ticket t1, Ticket t2) {
 }
 
 // sort tickets vector
-void sort_tickets(std::vector<Ticket> &v, int sort_option) {
+Vector<Ticket> sort_tickets(Vector<Ticket> &v, int sort_option) {
+  std::vector<Ticket> v_tmp;
+  v_tmp = v2ToV(v);
   switch(sort_option) {
     case 1:
-      sort(v.begin(), v.end(), compareRouteNo);
+      sort(v_tmp.begin(), v_tmp.end(), compareRouteNo);
       break;
     case 2:
-      sort(v.begin(), v.end(), comparePointOfDeparture);
+      sort(v_tmp.begin(), v_tmp.end(), comparePointOfDeparture);
       break;
     case 3:
-      sort(v.begin(), v.end(), compareDestination);
+      sort(v_tmp.begin(), v_tmp.end(), compareDestination);
       break;
     case 4:
-      sort(v.begin(), v.end(), compareDepartureTime);
+      sort(v_tmp.begin(), v_tmp.end(), compareDepartureTime);
       break;
     case 5:
-      sort(v.begin(), v.end(), compareArrivalTime);
+      sort(v_tmp.begin(), v_tmp.end(), compareArrivalTime);
       break;
     case 6:
-      sort(v.begin(), v.end(), comparePrice);
+      sort(v_tmp.begin(), v_tmp.end(), comparePrice);
       break;
     default:
       break;
   }
+
+  return vToV2(v_tmp);
 }
 
 // filter tickets vector
-std::vector<Ticket> filter_tickets(std::vector<Ticket> v, string filter_string) {
+Vector<Ticket> filter_tickets(Vector<Ticket> &v, string filter_string) {
   if (filter_string == "") {
-    return clone_vector(v); // do nothing, if filter is an empty string
+    return Vector<Ticket>(v); // do nothing, if filter is an empty string
   }
 
-  std::vector<Ticket> v_tmp;
+  Vector<Ticket> v_tmp;
 
   for(int i = 0; i < v.size(); i++) {
     if (
@@ -172,9 +174,9 @@ std::vector<Ticket> filter_tickets(std::vector<Ticket> v, string filter_string) 
 }
 
 // Print the table of tickets
-void dump_table(const std::vector<Ticket> &v, int sort_option = 1, string filter_string = "") {
-  std::vector<Ticket> v_tmp = filter_tickets(v, filter_string);
-  sort_tickets(v_tmp, sort_option);
+void dump_table(Vector<Ticket> &v, int sort_option = 1, string filter_string = "") {
+  Vector<Ticket> v_tmp2 = filter_tickets(v, filter_string);
+  Vector<Ticket> v_tmp = sort_tickets(v_tmp2, sort_option);
   cout << endl;
   cout << "-------------------------------------------------------------------------------------" << endl;
   cout << "Route No | Point Of Departure | Departure Time | Destination | Arrival Time | Price" << endl;
@@ -186,34 +188,25 @@ void dump_table(const std::vector<Ticket> &v, int sort_option = 1, string filter
 }
 
 template<typename T>
-Vector<T> & vToV2(const std::vector<T> & v) {
+Vector<T> vToV2(std::vector<T> & v) {
   Vector<T> tmp;
   for (int i = 0; i < v.size(); i++) {
     tmp.push_back(v[i]);
   }
-  return &tmp;
+  return tmp;
 }
 
 template<typename T>
-std::vector<T> & v2ToV(const Vector<T> & v2) {
+std::vector<T> v2ToV(Vector<T> & v2) {
   std::vector<T> tmp;
   for (int i = 0; i < v2.size(); i++) {
     tmp.push_back(v2[i]);
   }
-  return & tmp;
-}
-
-// clone Tickets vector
-std::vector<Ticket> clone_vector(const std::vector<Ticket> &orig) {
-  std::vector<Ticket> copy;
-  for (int i = 0; i < orig.size(); i++) {
-    copy.push_back(orig[i]);
-  }
-  return copy;
+  return tmp;
 }
 
 // load data from file
-int load_data(string file_name, std::vector<Ticket> &v) {
+int load_data(string file_name, Vector<Ticket> &v) {
   Ticket t;
   ifstream data_file;
   data_file.open(file_name);

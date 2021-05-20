@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 
 #include "Vector.h"
 #include "Ticket.h"
@@ -9,8 +8,7 @@
 using namespace std;
 
 int main() {
-  std::vector<Ticket> v;
-  Vector<Ticket> v2;
+  Vector<Ticket> v;
   int sort_option = 1;
   string filter_string = "";
 
