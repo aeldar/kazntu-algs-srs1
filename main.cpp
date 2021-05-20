@@ -2,12 +2,14 @@
 #include <fstream>
 #include <vector>
 
+#include "Vector.h"
 #include "Ticket.h"
 #include "app.h"
 
 using namespace std;
 
 int main() {
+  Vector<Ticket> myVector;
   std::vector<Ticket> v;
   int sort_option = 1;
   string filter_string = "";
