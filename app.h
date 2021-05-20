@@ -19,13 +19,11 @@ bool compareDepartureTime(Ticket, Ticket);
 bool compareArrivalTime(Ticket, Ticket);
 bool comparePrice(Ticket, Ticket);
 
-Vector<Ticket> sort_tickets(Vector<Ticket> &, int);
-Vector<Ticket> filter_tickets(Vector<Ticket> &, string);
+Vector<Ticket> sort_tickets(const Vector<Ticket> &, int);
+Vector<Ticket> filter_tickets(const Vector<Ticket> &, string);
 void dump_table(const Vector<Ticket> &, int, string);
-template<typename T>
-Vector<T> standard_to_custom(const std::vector<T> &);
-template<typename T>
-std::vector<T> custom_to_standard(const Vector<T> &);
+Vector<Ticket> standard_to_custom(const std::vector<Ticket> &);
+std::vector<Ticket> custom_to_standard(const Vector<Ticket> &);
 int load_data(string, Vector<Ticket> &);
 
 // --- Implamentation ---
@@ -120,7 +118,7 @@ bool comparePrice(Ticket t1, Ticket t2) {
 }
 
 // sort tickets vector
-Vector<Ticket> sort_tickets(Vector<Ticket> &v, int sort_option) {
+Vector<Ticket> sort_tickets(const Vector<Ticket> &v, int sort_option) {
   std::vector<Ticket> v_tmp = custom_to_standard(v);
   switch(sort_option) {
     case 1:
@@ -149,13 +147,12 @@ Vector<Ticket> sort_tickets(Vector<Ticket> &v, int sort_option) {
 }
 
 // filter tickets vector
-Vector<Ticket> filter_tickets(Vector<Ticket> &v, string filter_string) {
+Vector<Ticket> filter_tickets(const Vector<Ticket> &v, string filter_string) {
   if (filter_string == "") {
-    return Vector<Ticket>(v); // do nothing, if filter is an empty string
+    return Vector<Ticket>(v); // return untouched clone, if filter is an empty string
   }
 
   Vector<Ticket> v_tmp;
-
   for(int i = 0; i < v.size(); i++) {
     if (
       to_string(v[i].get_route_no()).find(filter_string) != std::string::npos
@@ -173,31 +170,28 @@ Vector<Ticket> filter_tickets(Vector<Ticket> &v, string filter_string) {
 }
 
 // Print the table of tickets
-void dump_table(Vector<Ticket> &v, int sort_option = 1, string filter_string = "") {
-  Vector<Ticket> v_tmp2 = filter_tickets(v, filter_string);
-  Vector<Ticket> v_tmp = sort_tickets(v_tmp2, sort_option);
+void dump_table(const Vector<Ticket> &v, int sort_option = 1, string filter_string = "") {
+  Vector<Ticket> tickets_view = sort_tickets(filter_tickets(v, filter_string), sort_option);
   cout << endl;
   cout << "-------------------------------------------------------------------------------------" << endl;
   cout << "Route No | Point Of Departure | Departure Time | Destination | Arrival Time | Price" << endl;
   cout << "---------+--------------------+----------------+-------------+--------------+--------" << endl;
-  for (int i = 0; i < v_tmp.size(); i++) {
-    cout << v_tmp[i] << endl;
+  for (int i = 0; i < tickets_view.size(); i++) {
+    cout << tickets_view[i] << endl;
   }
   cout << "-------------------------------------------------------------------------------------" << endl;
 }
 
-template<typename T>
-Vector<T> standard_to_custom(const std::vector<T> & v) {
-  Vector<T> tmp;
+Vector<Ticket> standard_to_custom(const std::vector<Ticket> & v) {
+  Vector<Ticket> tmp;
   for (int i = 0; i < v.size(); i++) {
     tmp.push_back(v[i]);
   }
   return tmp;
 }
 
-template<typename T>
-std::vector<T> custom_to_standard(const Vector<T> & v2) {
-  std::vector<T> tmp;
+std::vector<Ticket> custom_to_standard(const Vector<Ticket> & v2) {
+  std::vector<Ticket> tmp;
   for (int i = 0; i < v2.size(); i++) {
     tmp.push_back(v2[i]);
   }
