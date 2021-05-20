@@ -2,6 +2,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include "Vector.h"
+
 using namespace std;
 
 std::vector<Ticket> clone_vector(const std::vector<Ticket> &);
@@ -21,12 +23,16 @@ bool comparePrice(Ticket, Ticket);
 void sort_tickets(std::vector<Ticket> &, int);
 std::vector<Ticket> filter_tickets(std::vector<Ticket>, string);
 void dump_table(const std::vector<Ticket> &, int, string);
+template<typename T>
+Vector<T> vToV2(std::vector<T>);
+template<typename T>
+std::vector<T> v2ToV(Vector<T>);
 std::vector<Ticket> clone_vector(const std::vector<Ticket> &);
 int load_data(string, std::vector<Ticket> &);
 
 // --- Implamentation ---
 
-// Ask a user about top level options
+// Ask user about top level options
 int top_menu() {
 
   int selected_option;
@@ -55,7 +61,7 @@ int top_menu() {
   return selected_option;
 }
 
-// Ask a user about a sorting option
+// Ask user about a sorting option
 int sort_menu() {
 
   int selected_option;
@@ -83,7 +89,7 @@ int sort_menu() {
   return selected_option;
 }
 
-// Ask a user to specify a filter string
+// Ask user to specify a filter string
 string filter_menu() {
 
   string filter_string = "";
@@ -177,6 +183,24 @@ void dump_table(const std::vector<Ticket> &v, int sort_option = 1, string filter
     cout << v_tmp[i] << endl;
   }
   cout << "-------------------------------------------------------------------------------------" << endl;
+}
+
+template<typename T>
+Vector<T> & vToV2(const std::vector<T> & v) {
+  Vector<T> tmp;
+  for (int i = 0; i < v.size(); i++) {
+    tmp.push_back(v[i]);
+  }
+  return &tmp;
+}
+
+template<typename T>
+std::vector<T> & v2ToV(const Vector<T> & v2) {
+  std::vector<T> tmp;
+  for (int i = 0; i < v2.size(); i++) {
+    tmp.push_back(v2[i]);
+  }
+  return & tmp;
 }
 
 // clone Tickets vector
