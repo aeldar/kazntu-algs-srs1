@@ -17,9 +17,9 @@ public:
 
   void push_back(T);
   void pop_back();
-  int size();
+  int size() const;
 
-  T & operator[](int);
+  T & operator[](int) const;
 };
 
 template<typename T>
@@ -87,11 +87,11 @@ void Vector<T>::pop_back() {
 }
 
 template<typename T>
-T & Vector<T>::operator[](int index) {
+T & Vector<T>::operator[](int index) const {
   return elements[index];
 }
 
 template<typename T>
-int Vector<T>::size() {
+int Vector<T>::size() const {
   return current_size;
 }

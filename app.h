@@ -23,9 +23,9 @@ Vector<Ticket> sort_tickets(Vector<Ticket> &, int);
 Vector<Ticket> filter_tickets(Vector<Ticket> &, string);
 void dump_table(const Vector<Ticket> &, int, string);
 template<typename T>
-Vector<T> vToV2(std::vector<T> &);
+Vector<T> vToV2(const std::vector<T> &);
 template<typename T>
-std::vector<T> v2ToV(Vector<T> &);
+std::vector<T> v2ToV(const Vector<T> &);
 int load_data(string, Vector<Ticket> &);
 
 // --- Implamentation ---
@@ -188,7 +188,7 @@ void dump_table(Vector<Ticket> &v, int sort_option = 1, string filter_string = "
 }
 
 template<typename T>
-Vector<T> vToV2(std::vector<T> & v) {
+Vector<T> vToV2(const std::vector<T> & v) {
   Vector<T> tmp;
   for (int i = 0; i < v.size(); i++) {
     tmp.push_back(v[i]);
@@ -197,7 +197,7 @@ Vector<T> vToV2(std::vector<T> & v) {
 }
 
 template<typename T>
-std::vector<T> v2ToV(Vector<T> & v2) {
+std::vector<T> v2ToV(const Vector<T> & v2) {
   std::vector<T> tmp;
   for (int i = 0; i < v2.size(); i++) {
     tmp.push_back(v2[i]);
