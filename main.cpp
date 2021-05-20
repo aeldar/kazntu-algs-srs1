@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 
 #include "Vector.h"
 #include "Ticket.h"
