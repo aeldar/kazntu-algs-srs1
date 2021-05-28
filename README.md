@@ -1,20 +1,20 @@
-SRS 1
-=====
+# SRS 1
 
 The project was tested on linux gc++.
 
-Build
------
+# Build
 
-```make```
+```
+make
+```
 
-Clean
------
+## Clean
 
-```make clean```
+```
+make clean
+```
 
-Run
----
+## Run
 
 ```
 ./runme
@@ -22,5 +22,5 @@ Run
 
 The app reads the file "data.txt" located in the same directory to get Tickets data.
 
-The format for teh file:
+The format for the file:
 `RouteNo PointOfDeparture DepartureTime Destination ArrivalTime Price`
